@@ -63,7 +63,7 @@ const addDepartment = (data) => {
       if (err) {
         console.log(err);
       }
-      console.log("Department added");
+      console.log("Department added", result);
     }
   );
   viewDepartment();
@@ -77,7 +77,7 @@ const addRole = (data) => {
       if (err) {
         console.log(err);
       }
-      console.log("Role added");
+      console.log("Role added", result);
     }
   );
 };
@@ -85,12 +85,21 @@ const addRole = (data) => {
 const addEmployee = (data) => {
   db.query(
     `INSERT INTO employess (first_name, last_name, role_id, manager_id)
-  VALUES (${data.firstName}, ${data.lastName}, ${data.role}, ${data.manager})`,
+  VALUES (${data.firstName}, ${data.lastName}, ${data.role.value}, ${data.manager.value})`,
     (err, result) => {
       if (err) {
         console.log(err);
       }
-      console.log("Employee added");
+      console.log("Employee added", result);
     }
   );
+};
+
+module.exports = {
+  viewEmployees,
+  viewRoles,
+  viewDepartment,
+  addDepartment,
+  addEmployee,
+  addRole,
 };
