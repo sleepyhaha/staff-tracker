@@ -6,6 +6,7 @@ const {
   addRole,
   viewDepartment,
   addDepartment,
+  viewRoles,
 } = require("./query");
 require("./query");
 
@@ -19,29 +20,10 @@ const db = mysql.createConnection(
   console.log("Connected to staffDB")
 );
 
-init();
-const init = () => {
-  inquirer.prompt(mainMenuPrompt).then((choice) => {
-    if (choice === "View all employees") {
-      viewEmployees();
-    }
-    if (choice === "Add employee") {
-      addEmployeePrompt();
-    }
-    if (choice === "View All roles") {
-      viewEmployees();
-    }
-    if (choice === "Add role") {
-      addRolePrompt();
-    }
-    if (choice === "View all departments") {
-      viewDepartment();
-    }
-    if (choice === "Add department") {
-      addDepartmentPrompt();
-    }
-  });
-};
+db.connect((error) => {
+  if (error) throw error;
+  init();
+});
 
 const mainMenuPrompt = [
   {
@@ -207,4 +189,30 @@ const addEmployeePrompt = async () => {
   } catch (err) {
     console.log("There was an error.");
   }
+};
+
+const init = () => {
+  inquirer.prompt(mainMenuPrompt).then((answer) => {
+    const { choices } = answer;
+    switch (choices) {
+      case "View All Employees":
+        viewEmployees();
+        break;
+      case "Add Employee":
+        addEmployeePrompt();
+        break;
+      case "View All Roles":
+        viewRoles();
+        break;
+      case "Add Role":
+        addRolePrompt();
+        break;
+      case "View All Departments":
+        viewDepartment();
+        break;
+      case "Add Department":
+        addDepartmentPrompt();
+        break;
+    }
+  });
 };
