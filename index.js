@@ -26,3 +26,24 @@ const questions = [
     ],
   },
 ];
+
+const addDepartmentPrompt = async () => {
+  try {
+    await inquirer.prompt({
+      type: "input",
+      message: "What is the name of the department?",
+      name: "department",
+      validate: (input) => {
+        if (input) {
+          return true;
+        } else {
+          console.log("Please enter a department name.");
+        }
+        return false;
+      },
+    });
+    addDepartment(data);
+  } catch (err) {
+    console.log("There was an error");
+  }
+};

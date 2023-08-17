@@ -54,3 +54,43 @@ const viewDepartment = () => {
     }
   );
 };
+
+const addDepartment = (data) => {
+  db.query(
+    `INSERT INTO department (name)
+  VALUES (${data.response});`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("Department added");
+    }
+  );
+  viewDepartment();
+};
+
+const addRole = (data) => {
+  db.query(
+    `INSERT INTO role (title, salary, department_id)
+  VALUES (${data.title}, ${data.salary}, ${data.department_id})`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("Role added");
+    }
+  );
+};
+
+const addEmployee = (data) => {
+  db.query(
+    `INSERT INTO employess (first_name, last_name, role_id, manager_id)
+  VALUES (${data.firstName}, ${data.lastName}, ${data.role}, ${data.manager})`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("Employee added");
+    }
+  );
+};
